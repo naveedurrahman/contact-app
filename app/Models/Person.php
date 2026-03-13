@@ -11,5 +11,13 @@ class Person extends Model
     /** @use HasFactory<\Database\Factories\PersonFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['firstname', 'lastname', 'email', 'phone'];
+    protected $fillable = ['firstname', 'lastname', 'email', 'phone', 'business_id'];
+
+    //we also define the eager loding with function here in model and we called him eager loding by default
+    // protected $with = ['business'];
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
 }
