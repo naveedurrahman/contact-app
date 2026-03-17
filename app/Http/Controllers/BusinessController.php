@@ -14,7 +14,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        $businesses = Business::latest()->get();
+        $businesses = Business::with('categories')->latest()->get();
         return view('business.index', compact('businesses'));
     }
 
@@ -41,7 +41,7 @@ class BusinessController extends Controller
      */
     public function show(Business $business)
     {
-        //
+        return view('business.detail', compact('business'));
     }
 
     /**
