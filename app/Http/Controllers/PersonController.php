@@ -42,7 +42,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        return view('person.detail', compact('person'));
     }
 
     /**

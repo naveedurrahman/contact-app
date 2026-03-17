@@ -12,7 +12,21 @@ class Business extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['business_name', 'contact_email'];
 
-    public function people(){
+    public function people()
+    {
         $this->hasMany(Person::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function tasks(){
+        return $this->morphMany(Task::class, 'taskable');
+    }
+
+    public function tags(){
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }
