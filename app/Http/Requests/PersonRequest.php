@@ -29,7 +29,8 @@ class PersonRequest extends FormRequest
             'lastname'  => 'required|string|max:255',
             'email'     => ['nullable', 'email', Rule::unique('people')->ignore($personId)],
             'phone'     => 'nullable|string|max:20',
-            'business_id' => 'nullable|exists:businesses,id'
+            'business_id' => 'nullable|exists:businesses,id',
+            'tags' => 'nullable|array'
         ];
     }
 }

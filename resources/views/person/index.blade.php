@@ -20,7 +20,7 @@
                         </a>
                     </div>
 
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                    <div class="overflow-x-auto border border-gray-200 rounded-lg mb-6">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($persons as $person)
+                                @foreach($people as $person)
                                 <tr class="hover:bg-gray-50 transition-colors">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                                         {{$person->firstname}} {{$person->lastname}}
@@ -95,6 +95,8 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{$people->links()}}
                 </div>
             </div>
         </div>

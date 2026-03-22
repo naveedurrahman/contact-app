@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BusinessRequest;
 use App\Models\Business;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -14,7 +16,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        $businesses = Business::with('categories')->latest()->get();
+        $businesses = Business::with('categories', 'tags')->withCount('people')->latest()->paginate(10);
         return view('business.index', compact('businesses'));
     }
 
@@ -23,8 +25,9 @@ class BusinessController extends Controller
      */
     public function create()
     {
-
-        return view('business.create');
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('business.create', compact('tags', 'categories'));
     }
 
     /**
@@ -32,7 +35,13 @@ class BusinessController extends Controller
      */
     public function store(BusinessRequest $request)
     {
-        Business::create($request->validated());
+        $business = Business::create($request->validated());
+        if ($request->has('tags')) {
+            $business->tags()->sync($request->tags);
+        }
+        if ($request->has('categories')) {
+            $business->categories()->sync($request->categories);
+        }
         return redirect(route('business.index'));
     }
 
@@ -49,7 +58,9 @@ class BusinessController extends Controller
      */
     public function edit(Business $business)
     {
-        return view('business.edit', compact('business'));
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('business.edit', compact('business', 'tags', 'categories'));
     }
 
     /**
@@ -58,6 +69,12 @@ class BusinessController extends Controller
     public function update(BusinessRequest $request, Business $business)
     {
         $business->update($request->validated());
+        if ($request->has('tags')) {
+            $business->tags()->sync($request->tags);
+        }
+        if ($request->has('categories')) {
+            $business->categories()->sync($request->categories);
+        }
         return redirect(route('business.index'));
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PersonRequest;
 use App\Models\Business;
 use App\Models\Person;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -15,8 +16,8 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $persons = Person::with('business')->latest()->get();
-        return view('person.index', compact('persons'));
+        $people = Person::with('business', 'tags')->latest()->paginate(10);
+        return view('person.index', compact('people'));
     }
 
     /**
@@ -25,7 +26,8 @@ class PersonController extends Controller
     public function create()
     {
         $businesses = Business::all();
-        return view('person.create', compact('businesses'));
+        $tags = Tag::all();
+        return view('person.create', compact('businesses', 'tags'));
     }
 
     /**
@@ -33,7 +35,10 @@ class PersonController extends Controller
      */
     public function store(PersonRequest $request)
     {
-        Person::create($request->validated());
+        $person = Person::create($request->validated());
+        if ($request->has('tags')) {
+            $person->tags()->sync($request->tags);
+        }
         return redirect(route('person.index'));
     }
 
@@ -51,7 +56,8 @@ class PersonController extends Controller
     public function edit(Person $person)
     {
         $businesses = Business::all();
-        return view('person.edit', compact('person', 'businesses'));
+        $tags = Tag::all();
+        return view('person.edit', compact('person', 'businesses', 'tags'));
     }
 
     /**
@@ -60,6 +66,9 @@ class PersonController extends Controller
     public function update(PersonRequest $request, Person $person)
     {
         $person->update($request->validated());
+        if ($request->has('tags')) {
+            $person->tags()->sync($request->tags);
+        }
         return redirect(route('person.index'));
     }
 

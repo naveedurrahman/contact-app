@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Business;
-use App\Models\Category;
-use App\Models\Person;
-use App\Models\User;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-        // Person::factory(10)->create();
-        // Business::factory(10)->create();
+        $this->call([
+            UserSeeder::class,
+            BusinessSeeder::class,
+            PersonSeeder::class,
+            TaskSeeder::class,
+            CategorySeeder::class,
+            TagSeeder::class
+        ]);
+
+
+
         // Category::factory(10)->create();
 
 

@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class BusinessRequest extends FormRequest
+class TaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +22,11 @@ class BusinessRequest extends FormRequest
      */
     public function rules(): array
     {
-        $businessId = $this->route('business');
         return [
-            'business_name' => 'required|string|max:255',
-            'contact_email' => [
-                'nullable',
-                'email',
-                Rule::unique('businesses')->ignore($businessId)
-            ],
-            'tags' => 'nullable|array'
+            'title' => 'required|string',
+            'description' => 'required',
+            'taskable_id' => 'required',
+            'taskable_type' => 'required'
         ];
     }
 }

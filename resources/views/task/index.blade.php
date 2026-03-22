@@ -10,10 +10,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-semibold text-gray-800">List of Task</h2>
+                        <h2 class="text-xl font-semibold text-gray-800">List of Open Task</h2>
                     </div>
 
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                    <div class="overflow-x-auto border border-gray-200 rounded-lg mb-6">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
@@ -65,6 +65,8 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{$tasks->links()}}
                 </div>
             </div>
         </div>

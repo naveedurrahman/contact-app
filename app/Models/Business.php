@@ -14,7 +14,7 @@ class Business extends Model
 
     public function people()
     {
-        $this->hasMany(Person::class);
+        return $this->hasMany(Person::class);
     }
 
     public function categories()
@@ -22,11 +22,18 @@ class Business extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function tasks(){
+    public function tasks()
+    {
         return $this->morphMany(Task::class, 'taskable');
     }
 
-    public function tags(){
-        return $this->morphToMany(Tag::class, 'taggable');
+    public function getEmailForTask()
+    {
+        return $this->contact_email;
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
     }
 }

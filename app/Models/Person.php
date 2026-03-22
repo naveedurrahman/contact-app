@@ -26,8 +26,13 @@ class Person extends Model
         return $this->morphMany(Task::class, 'taskable');
     }
 
+    public function getEmailForTask()
+    {
+        return $this->email;
+    }
+
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
     }
 }
