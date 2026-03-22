@@ -38,6 +38,37 @@
                             @enderror
                         </div>
 
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Categories</label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                @foreach($categories as $category)
+                                <label class="flex items-center space-x-2 bg-gray-50 border rounded-md px-3 py-2 cursor-pointer hover:bg-gray-100">
+                                    <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                                        class="rounded text-blue-600 focus:ring-blue-500"
+                                        {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
+                                    <span class="text-sm text-gray-700">{{ $category->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Tags</label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                @foreach($tags as $tag)
+                                <label class="flex items-center space-x-2 bg-gray-50 border rounded-md px-3 py-2 cursor-pointer hover:bg-gray-100">
+                                    <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                                        class="rounded text-blue-600 focus:ring-blue-500"
+                                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                                    <span class="text-sm text-gray-700">{{ $tag->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                            @error('tags')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="flex items-center justify-end pt-6 border-t border-gray-100">
                             <a href="{{ route('business.index') }}"
                                 class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition">

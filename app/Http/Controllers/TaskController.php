@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Business;
 use App\Models\Person;
 use App\Models\Task;
@@ -11,19 +12,12 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with('taskable')->latest()->get();
+        $tasks = Task::with('taskable')->latest()->open()->paginate(10);
         return view('task.index', compact('tasks'));
     }
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
-            'taskable_id' => 'required',
-            'taskable_type' => 'required'
-        ]);
-
         $targetModel = match ($request->taskable_type) {
             'person' => Person::findOrFail($request->taskable_id),
             'business' => Business::findOrFail($request->taskable_id),

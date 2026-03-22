@@ -81,6 +81,22 @@
                             @enderror
                         </div>
 
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Tags</label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                @foreach($tags as $tag)
+                                <label class="flex items-center space-x-2 bg-gray-50 border rounded-md px-3 py-2 cursor-pointer hover:bg-gray-100">
+
+                                    <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                                        class="rounded text-blue-600"
+                                        {{ in_array($tag->id, old('tags', $person->tags->pluck('id')->toArray())) ? 'checked' : '' }}>
+
+                                    <span class="text-sm">{{ $tag->name }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </div>
+
 
                         <!-- Action Buttons -->
                         <div class="flex items-center justify-end pt-6 border-t border-gray-100">

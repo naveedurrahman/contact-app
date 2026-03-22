@@ -20,12 +20,13 @@
                         </a>
                     </div>
 
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                    <div class="overflow-x-auto border border-gray-200 rounded-lg mb-6">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Business Name</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Business Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">#people</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Business Categories</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tags</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Action</th>
@@ -44,7 +45,9 @@
                                         <span class="text-gray-400 italic">Nill</span>
                                         @endif
                                     </td>
-
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                        {{$business->people_count}}
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                         @if($business->categories->count())
                                         {{ $business->categories->pluck('name')->join(', ') }}
@@ -87,6 +90,10 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{$businesses->links()}}
+
+
                 </div>
             </div>
         </div>

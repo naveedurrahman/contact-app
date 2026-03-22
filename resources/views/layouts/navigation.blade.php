@@ -39,7 +39,7 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
-                    <x-nav-link :href="route('task.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
                         {{ __('Task') }}
                     </x-nav-link>
                 </div>
